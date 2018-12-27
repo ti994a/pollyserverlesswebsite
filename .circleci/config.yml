@@ -12,12 +12,12 @@ jobs:
           command: |
             amazon-linux-extras install python3 -y
       - run:
-        name: Install AWS CLI
-        command: |
-          pip3 install awscli
+          name: Install AWS CLI
+          command: |
+            pip3 install awscli
       - run:
-        name: Install Hugo
-        command: |
-          cp hugo_installation_config.txt /etc/yum.repos.d/CentOS-hugo.repo
-          yum install -y hugo
-          hugo version
+          name: Install Hugo
+          command: |
+            cp hugo_installation_config.txt /etc/yum.repos.d/CentOS-hugo.repo
+            yum install -y hugo
+            hugo version

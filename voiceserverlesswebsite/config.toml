@@ -1,0 +1,23 @@
+baseURL = "http://pollyserverlesswebsite-site.s3-website-us-east-1.amazonaws.com"
+languageCode = "en-us"
+defaultContentLanguage = "en"
+title = "Polly Want a Cracker?"
+theme ="hugo-theme-learn-master"
+defaultContentLanguageInSubdir = true
+uglyurls = true
+
+[params]
+  description = "The superintelligent parrot"
+  author = "JoeyD"
+  showVisitedLinks = true
+
+[Languages]
+[Languages.en]
+title = "Polly Want a Cracker?"
+weight = 1
+languageName = "English"
+
+[Languages.fr]
+title = "French Title"
+weight = 2
+languageName = "French"

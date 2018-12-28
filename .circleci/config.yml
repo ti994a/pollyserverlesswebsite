@@ -26,6 +26,11 @@ jobs:
           command: | 
             cd voiceserverlesswebsite
             hugo
+      - run:
+          name: list voiceserverlesswebsite folder contents
+          command: | 
+            cd voiceserverlesswebsite
+            ls -al
       - deploy:
           command: | 
             aws s3 sync --delete --acl "public-read" --sse "AES256" voiceserverlesswebsite/public s3://pollyserverlesswebsite-site

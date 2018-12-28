@@ -18,7 +18,7 @@ def lambda_handler(event, context):
     output_bucket = os.environ['polly_bucket']
 
     s3_bucket = event['Records'][0]['s3']['bucket']['name']
-    key = urlib.parse.unquote_plus(event['Records'][0]['s3']['object']['key']), encoding='utf-8')
+    key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
 
     try:
         whole_filename, file_extension = os.path.splitext(key)

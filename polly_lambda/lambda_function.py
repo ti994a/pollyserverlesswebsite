@@ -35,7 +35,7 @@ def lambda_handler(event, context):
         response = polly.synthesize_speech(
             OutputFormat=output,
             Text=text,
-            VoiceID=voice_id
+            VoiceId=voice_id
         )
 
         output_file_name = "{}.{}".format(filename, output)

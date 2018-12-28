@@ -15,7 +15,7 @@ def lambda_handler(event, context):
     # default language if one is not specified in imput file name, or we do not support language specified in input file name
     default_language = os.environ['default_language']
     # output bucket for synthesized speech files
-    output_bucket = os.environ['polly_bucket']
+    output_bucket = os.environ['output_bucket']
 
     s3_bucket = event['Records'][0]['s3']['bucket']['name']
     key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
@@ -46,8 +46,8 @@ def lambda_handler(event, context):
                 with open(temp_output_file, "ab") as f:
                     f.write(stream.read())
 
-        s3.Object(output_bucket, output_file_name).upload_file(temp_output_file),ExtraArgs={'ACL':'public-read'})
-    
+        s3.Object(output_bucket, output_file_name).upload_file(temp_output_file,ExtraArgs={'ACL':'public-read'})
+            
     except Exception as e:
         print('Error caught in Lambda')
         raise e

@@ -10,6 +10,7 @@ uglyurls = true
   description = "The superintelligent parrot"
   author = "JoeyD"
   showVisitedLinks = true
+  pollyMediaURL = "https://s3.us-east-1.amazonaws.com/pollyserverlesswebsite-audio"
 
 [Languages]
 [Languages.en]

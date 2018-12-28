@@ -22,6 +22,10 @@ jobs:
             yum install -y hugo
             hugo version
       - run:
+          name: Add articles for audio conversion by Polly
+          command: | 
+            aws s3 sync voiceserverlesswebsite/articles/ s3://pollyserverlesswebsite-code/articles/
+      - run:
           name: Tell Hugo to build the website
           command: | 
             cd voiceserverlesswebsite

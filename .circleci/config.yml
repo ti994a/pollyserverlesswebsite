@@ -29,6 +29,4 @@ jobs:
       - deploy:
           command: | 
             aws s3 sync --delete --acl "public-read" --sse "AES256" voiceserverlesswebsite/public s3://pollyserverlesswebsite-site
-
-
-
+            

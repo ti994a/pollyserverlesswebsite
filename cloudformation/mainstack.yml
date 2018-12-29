@@ -99,3 +99,8 @@ Resources:
       FunctionName: !GetAtt PollyLambda.Arn
       Principal: "s3.amazonaws.com"
       SourceArn: !GetAtt CodeBucket.Arn
+Outputs:
+  PollyLambdaARN:
+    Description: "The ARN of the PollyLambda created by this template"
+    Value: !GetAtt PollyLambda.Arn
+  

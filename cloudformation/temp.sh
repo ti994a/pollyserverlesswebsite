@@ -1,0 +1,1 @@
+aws s3api put-bucket-notification-configuration --bucket pollyserverlesswebsite-code --notification-configuration file://lambda_notification.json

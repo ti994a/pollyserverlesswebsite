@@ -1,0 +1,8 @@
+{
+    "LambdaFunctionConfigurations": [
+      {
+        "LambdaFunctionArn": "arn:aws:lambda:us-east-1:401484316288:function:xxxx-PollyLambda-RLORIKGA6PIC",
+        "Events": ["s3:ObjectCreated:*"]
+      }
+    ]
+ }

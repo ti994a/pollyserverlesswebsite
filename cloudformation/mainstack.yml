@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  PollyLambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: "sts:AssumeRole"
+  PollyLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: "Converts text files dropped into S3 bucket into speech-synthesized audio files using Polly"
+      Handler: "lambda_function.lambda_handler"
+      Role: !GetAtt [ PollyLambdaRole, Arn ]
+      Code:
+        S3Bucket: "staging-bucket-us-east-1-joeyd"
+        S3Key: "polly_lambda_function.py.zip"
+      Runtime: "python3.6"
+      Timeout: "300"
+      Environment:
+        Variables:
+          default_language: "en" 
+          en: "Matthew"
+          fr: "Celine"
+          output: "mp3"
+          output_bucket: !Ref AudioBucket
+          supported_languages: "en,fr"
+  SiteBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: "pollyserverlesswebsite-site"
+      AccessControl: "PublicRead"
+      WebsiteConfiguration:
+        IndexDocument: "index.html"
+  AudioBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: "pollyserverlesswebsite-audio"
+  CodeBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: "pollyserverlesswebsite-code"
+  PermissionForS3ToInvokePollyLambda:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt PollyLambda.Arn
+      Principal: "s3.amazonaws.com"
+      SourceArn: !GetAtt CodeBucket.Arn

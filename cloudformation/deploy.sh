@@ -1,9 +1,10 @@
 #!/bin/bash
-aws cloudformation deploy --template-file mainstack.yml --stack-name polly-serverless-website --capabilities CAPABILITY_IAM
-aws cloudformation wait stack-create-complete --stack-name polly-serverless-website
-aws cloudformation --region us-east-1 describe-stacks --stack-name polly-serverless-website
+. ./config.conf
+aws cloudformation deploy --template-file mainstack.yml --stack-name $STACKNAME --capabilities CAPABILITY_IAM
+aws cloudformation wait stack-create-complete --stack-name $STACKNAME
+aws cloudformation --region us-east-1 describe-stacks --stack-name $STACKNAME
 # Get ARN of PollyLambda
-PollyLambdaARN=$(aws cloudformation --region us-east-1 describe-stacks --stack-name polly-serverless-website --query 'Stacks[0].Outputs[0].OutputValue')
+PollyLambdaARN=$(aws cloudformation --region us-east-1 describe-stacks --stack-name $STACKNAME --query 'Stacks[0].Outputs[0].OutputValue')
 # Use ARN of PollyLambda to create lambda notification off of pollyserverlesswebsite-code bucket object adds
 # First create json bucket notification configuration file
 cat > lambda_notification.json << EOF

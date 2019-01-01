@@ -1,7 +1,7 @@
 {
     "LambdaFunctionConfigurations": [
       {
-        "LambdaFunctionArn": "arn:aws:lambda:us-east-1:401484316288:function:polly-serverless-website-PollyLambda-QUK0EA1MFLXB",
+        "LambdaFunctionArn": "arn:aws:lambda:us-east-1:401484316288:function:polly-serverless-website-PollyLambda-YBIYEJUQLXB0",
         "Events": ["s3:ObjectCreated:*"]
       }
     ]

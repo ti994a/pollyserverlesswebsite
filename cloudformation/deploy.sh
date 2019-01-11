@@ -1,6 +1,6 @@
 #!/bin/bash
 . ./config.conf
-aws cloudformation deploy --template-file mainstack.yml --stack-name $STACKNAME --capabilities CAPABILITY_IAM
+aws cloudformation deploy --region us-east-1 --template-file mainstack.yml --stack-name $STACKNAME --capabilities CAPABILITY_IAM
 aws cloudformation wait stack-create-complete --stack-name $STACKNAME
 aws cloudformation --region us-east-1 describe-stacks --stack-name $STACKNAME
 # Get ARN of PollyLambda

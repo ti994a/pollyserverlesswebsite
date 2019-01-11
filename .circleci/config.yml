@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  website_build:
     docker:
       - image: amazonlinux
     working_directory: ~/repo
@@ -38,4 +38,44 @@ jobs:
       - deploy:
           command: | 
             aws s3 sync --delete --acl "public-read" --sse "AES256" voiceserverlesswebsite/public s3://pollyserverlesswebsite-site
-            
+ 
+  lambda_build:
+    docker:
+      - image: amazonlinux
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Install Python 3.6
+          command: |
+            amazon-linux-extras install python3 -y
+      - run:
+          name: Install AWS CLI
+          command: |
+            pip3 install awscli
+      - run:
+          name: Create Lambda Package
+          command: |
+            yum install-y zip
+            cd polly_lambda
+            zip polly_lambda_function.py.zip lambda_function.py
+      - run:
+          name: Upload Zipped Lambda Code to S3
+          command: | 
+            aws s3 cp polly_lambda_function.py.zip s3://staging-bucket-us-east-1-joeyd
+      - run:
+          name: Deploy Stack
+          command: | 
+            cd ../cloudformation/
+            sh deploy.sh
+
+workflows:
+  version: 2
+  build-lambda-and-website:
+    jobs:
+      - lambda_build
+      - website_build:
+        requires:
+          - lambda_build
+

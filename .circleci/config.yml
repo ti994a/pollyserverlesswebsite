@@ -57,7 +57,7 @@ jobs:
       - run:
           name: Create Lambda Package
           command: |
-            yum install-y zip
+            yum install -y zip
             cd polly_lambda
             zip polly_lambda_function.py.zip lambda_function.py
       - run:
@@ -78,4 +78,3 @@ workflows:
       - build:
           requires:
             - lambda_build
-            

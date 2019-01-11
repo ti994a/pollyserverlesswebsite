@@ -60,10 +60,13 @@ jobs:
             yum install -y zip
             cd polly_lambda
             zip polly_lambda_function.py.zip lambda_function.py
+            pwd
             ls
       - run:
           name: Upload Zipped Lambda Code to S3
           command: | 
+            pwd
+            ls
             aws s3 cp polly_lambda_function.py.zip s3://staging-bucket-us-east-1-joeyd
       - run:
           name: Deploy Stack

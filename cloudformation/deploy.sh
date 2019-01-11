@@ -18,4 +18,4 @@ cat > lambda_notification.json << EOF
  }
 EOF
 # Then apply bucket notification configuration
-aws s3api put-bucket-notification-configuration --bucket pollyserverlesswebsite-code --notification-configuration file://lambda_notification.json
+aws s3api put-bucket-notification-configuration --region us-east-1 --bucket pollyserverlesswebsite-code --notification-configuration file://lambda_notification.json

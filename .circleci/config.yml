@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  website_build:
+  build:
     docker:
       - image: amazonlinux
     working_directory: ~/repo
@@ -75,7 +75,7 @@ workflows:
   build-lambda-and-website:
     jobs:
       - lambda_build
-      - website_build:
-        requires:
-          - lambda_build
-
+      - build:
+          requires:
+            - lambda_build
+            

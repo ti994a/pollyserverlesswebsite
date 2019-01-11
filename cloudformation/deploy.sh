@@ -1,10 +1,10 @@
 #!/bin/bash
 . ./config.conf
-aws cloudformation deploy --region us-east-1 --template-file mainstack.yml --stack-name $STACKNAME --capabilities CAPABILITY_IAM
+aws cloudformation deploy --region $REGION --template-file mainstack.yml --stack-name $STACKNAME --capabilities CAPABILITY_IAM
 aws cloudformation wait stack-create-complete --stack-name $STACKNAME
-aws cloudformation --region us-east-1 describe-stacks --stack-name $STACKNAME
+aws cloudformation --region $REGION describe-stacks --stack-name $STACKNAME
 # Get ARN of PollyLambda
-PollyLambdaARN=$(aws cloudformation --region us-east-1 describe-stacks --stack-name $STACKNAME --query 'Stacks[0].Outputs[0].OutputValue')
+PollyLambdaARN=$(aws cloudformation --region $REGION describe-stacks --stack-name $STACKNAME --query 'Stacks[0].Outputs[0].OutputValue')
 # Use ARN of PollyLambda to create lambda notification off of pollyserverlesswebsite-code bucket object adds
 # First create json bucket notification configuration file
 cat > lambda_notification.json << EOF
@@ -18,4 +18,4 @@ cat > lambda_notification.json << EOF
  }
 EOF
 # Then apply bucket notification configuration
-aws s3api put-bucket-notification-configuration --region us-east-1 --bucket pollyserverlesswebsite-code --notification-configuration file://lambda_notification.json
+aws s3api put-bucket-notification-configuration --region $REGION --bucket pollyserverlesswebsite-code --notification-configuration file://lambda_notification.json

@@ -64,7 +64,7 @@ jobs:
       - run:
           name: Deploy Stack
           command: | 
-            cd ../cloudformation/
+            cd cloudformation/
             sh deploy.sh
 
 workflows:
